@@ -1,0 +1,7 @@
+1. get -> retourne quote -> si mercredi retourne : It is wednesday, my dudes!
+2. post -> ajouter une quote 
+3. quote search
+
+bd:
+
+id, quote, auteur

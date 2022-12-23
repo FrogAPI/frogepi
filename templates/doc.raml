@@ -1,0 +1,75 @@
+#%RAML 1.0
+---
+title: The FrogePI
+protocols: [ HTTP ] 
+baseUri: http://?????
+version: v0.1
+mediaType: application/json
+
+types:
+    AddQuote:
+        properties:
+            quote:
+                type: string
+                required: true
+            author:
+                type: string
+                required: true
+    GetQuote:
+        properties:
+            author:
+                type: string
+                required: true
+            quote:
+                type: string
+                required: true
+
+/:
+    get:
+        description: Tells you that Archy is best discord bot in the world
+
+/quote:
+    get:
+        queryParameters:
+            wantwens:
+                required: false
+                description: if value is set to true, on wednesday the returned quote will always be It is wednesday, my dudes!
+        body:
+            application/json:
+                type: GetQuote
+            example: |
+                {
+                    "author": "James Bond",
+                    "quote": "The name is Bond! James Bond!"
+                }
+        description: Returns a random quote
+        responses:
+            200:
+                description: Quote returned with no problem
+            404:
+                description: Nothing to show
+
+/add:
+    post:
+        queryParameters:
+            key:
+                required: true
+                description: api key
+        description: add a quote to the system
+        body: 
+            application/json:
+                type: AddQuote
+            example: |
+                {
+                    "quote" : "Searching for a heart of gold",
+                    "author": "Neil Young"
+                }
+        responses:
+            201:
+                description: Successfully added !
+            400:
+                description: Improper Json Body
+            403:
+                description: Access denied - Bad Api Key
+            500:
+                description: Internal Error
